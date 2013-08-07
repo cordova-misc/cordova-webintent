@@ -6,9 +6,9 @@
     <name>WebIntent</name>
     <description>Web intents for Cordova</description>
     <license>Apache</license>
-    <keywords>cordova,device</keywords>
+    <keywords>cordova,webintent</keywords>
 
-    <js-module src="www/webintent.js" name="device">
+    <js-module src="www/webintent.js" name="WebIntent">
         <clobbers target="WebIntent" />
     </js-module>
 
