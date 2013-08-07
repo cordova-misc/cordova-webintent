@@ -20,6 +20,6 @@
             </feature>
         </config-file>
 
-        <source-file src="src/android/WebIntent.java" target-dir="src/com/borismus" />
+        <source-file src="src/android/WebIntent.java" target-dir="src/com/borismus/webintent" />
     </platform>
 </plugin>
