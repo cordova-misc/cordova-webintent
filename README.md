@@ -1,6 +1,8 @@
-# WebIntents plugin for Phonegap #
+# WebIntent Android Plugin for Cordova 3.X #
 By Boris Smus
-Cordova 3.X version forked from [Initsogar/cordova-webintent](https://github.com/Initsogar/cordova-webintent)
+
+Cordova 3.X version forked from [Initsogar/cordova-webintent](https://github.com/Initsogar/cordova-webintent).
+
 Phonegap/Cordova 2.X version available at the [WebIntent](https://github.com/phonegap/phonegap-plugins/tree/master/Android/WebIntent) plugin site.
 
 ## Adding the Plugin to your project ##
@@ -11,6 +13,23 @@ cordova plugin add https://github.com/chrisekelley/cordova-webintent.git
 2. Confirm that the following is in your `res/xml/config.xml` file:
 
 `<plugin name="WebIntent" value="com.borismus.webintent.WebIntent" />`
+
+## Sample code
+
+Here is an example of using webintent to open an Android .apk package, which then launches the Installer:
+
+    window.plugins.webintent.startActivity({
+          action: window.plugins.webintent.ACTION_VIEW,
+          url: 'file://' + theFile.fullPath,
+          type: 'application/vnd.android.package-archive'
+        },
+        function() {},
+        function() {
+          alert('Failed to open URL via Android Intent.');
+          console.log("Failed to open URL via Android Intent. URL: " + theFile.fullPath)
+        }
+    );
+
 
 ## Using the plugin ##
 The plugin creates the object `window.plugins.webintent` with five methods:
