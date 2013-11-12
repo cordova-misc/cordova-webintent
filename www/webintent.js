@@ -64,11 +64,9 @@
         }, 'WebIntent', 'sendBroadcast', [params]);
     };
 
-    cordova.addConstructor(function() {
-        window.webintent = new WebIntent();
-        
-        // backwards compatibility
-        window.plugins = window.plugins || {};
-        window.plugins.webintent = window.webintent;
-    });
+    window.webintent = new WebIntent();
+    
+    // backwards compatibility
+    window.plugins = window.plugins || {};
+    window.plugins.webintent = window.webintent;
 })(window.PhoneGap || window.Cordova || window.cordova);
