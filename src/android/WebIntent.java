@@ -46,23 +46,28 @@ public class WebIntent extends CordovaPlugin {
                 }
 
                 // Parse the arguments
-                JSONObject obj = args.getJSONObject(0);
-                String type = obj.has("type") ? obj.getString("type") : null;
-                Uri uri = obj.has("url") ? Uri.parse(obj.getString("url")) : null;
-                JSONObject extras = obj.has("extras") ? obj.getJSONObject("extras") : null;
-                Map<String, String> extrasMap = new HashMap<String, String>();
+				JSONObject obj = args.getJSONObject(0);
+				if (obj.has("package")) {
+					String pkg = obj.getString("package");
+					Intent LaunchIntent = cordova.getActivity().getPackageManager().getLaunchIntentForPackage(pkg);
+					((CordovaActivity)this.cordova.getActivity()).startActivity(LaunchIntent);
+				} else {
+					String type = obj.has("type") ? obj.getString("type") : null;
+					Uri uri = obj.has("url") ? Uri.parse(obj.getString("url")) : null;
+					JSONObject extras = obj.has("extras") ? obj.getJSONObject("extras") : null;
+					Map<String, String> extrasMap = new HashMap<String, String>();
 
-                // Populate the extras if any exist
-                if (extras != null) {
-                    JSONArray extraNames = extras.names();
-                    for (int i = 0; i < extraNames.length(); i++) {
-                        String key = extraNames.getString(i);
-                        String value = extras.getString(key);
-                        extrasMap.put(key, value);
-                    }
-                }
-
-                startActivity(obj.getString("action"), uri, type, extrasMap);
+					// Populate the extras if any exist
+					if (extras != null) {
+						JSONArray extraNames = extras.names();
+						for (int i = 0; i < extraNames.length(); i++) {
+							String key = extraNames.getString(i);
+							String value = extras.getString(key);
+							extrasMap.put(key, value);
+						}
+					}
+					startActivity(obj.getString("action"), uri, type, extrasMap);
+				}
                 //return new PluginResult(PluginResult.Status.OK);
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 return true;
