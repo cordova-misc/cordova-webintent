@@ -1,108 +1,149 @@
-# WebIntent Android Plugin for Cordova 3.X #
-By Boris Smus
+# WebIntent Android Plugin for Cordova
 
-Cordova 3.X version forked from [Initsogar/cordova-webintent](https://github.com/Initsogar/cordova-webintent).
+## History
 
-Phonegap/Cordova 2.X version available at the [WebIntent](https://github.com/phonegap/phonegap-plugins/tree/master/Android/WebIntent) plugin site.
+- Originally [written](http://smus.com/android-phonegap-plugins/)
+  by [Boris Smus](https://github.com/borismus)
+  and published to
+  [phonegap/phonegap-plugins](https://github.com/phonegap/phonegap-plugins/tree/DEPRECATED/Android/WebIntent)
+  (now deprecated)
 
-## Adding the Plugin to your project ##
-1. To install the plugin, use the Cordova CLI and enter the following:
+- Forked by [Rafael Agostini](https://github.com/Initsogar)
+  and published to
+  [Initsogar/cordova-webintent](https://github.com/Initsogar/cordova-webintent)
+  (now removed)
 
-cordova plugin add https://github.com/chrisekelley/cordova-webintent.git
+- Forked by [Chris E. Kelley](https://github.com/chrisekelley)
+  and published to
+  [chrisekelley/cordova-webintent](https://github.com/chrisekelley/cordova-webintent)
 
-2. Confirm that the following is in your `res/xml/config.xml` file:
+- Many people forked but for some reason did not submit PRs,
+  leaving their forks divergent.
 
-`<plugin name="WebIntent" value="com.borismus.webintent.WebIntent" />`
+## Intention to maintain
+
+**This repo is actively maintained. Please feel free to treat it as the
+canonical upstream, and submit PRs for any changes you'd like merged.**
+
+## Adding this plugin to your project
+
+1. To install the plugin, use the Cordova CLI:
+
+    ```bash
+    cordova plugin add https://github.com/chrisekelley/cordova-webintent.git
+    ```
+
+1. Confirm that the following is now in your `config.xml` file:
+
+    ```xml
+    <plugin name="WebIntent" value="com.borismus.webintent.WebIntent" />
+    ```
 
 ## Sample code
 
 Here is an example of using webintent to open an Android .apk package, which then launches the Installer:
 
-    window.plugins.webintent.startActivity({
-          action: window.plugins.webintent.ACTION_VIEW,
-          url: 'file://' + theFile.fullPath,
-          type: 'application/vnd.android.package-archive'
-        },
-        function() {},
-        function() {
-          alert('Failed to open URL via Android Intent.');
-          console.log("Failed to open URL via Android Intent. URL: " + theFile.fullPath)
-        }
-    );
+```javascript
+window.plugins.webintent.startActivity({
+      action: window.plugins.webintent.ACTION_VIEW,
+      url: 'file://' + theFile.fullPath,
+      type: 'application/vnd.android.package-archive'
+    },
+    function () {},
+    function () {
+      alert('Failed to open URL via Android Intent.');
+      console.log('Failed to open URL via Android Intent. URL: ' + theFile.fullPath);
+    }
+);
+```
 
+## Using the plugin
 
-## Using the plugin ##
 The plugin creates the object `window.plugins.webintent` with five methods:
 
-### startActivity ###
+### startActivity
+
 Launches an Android intent. For example:
 
+```javascript
+window.plugins.webintent.startActivity({
+    action: window.plugins.webintent.ACTION_VIEW,
+    url: 'geo:0,0?q=' + address},
+    function () {},
+    function () { alert('Failed to open URL via Android Intent'); }
+);
+```
 
-    window.plugins.webintent.startActivity({
-        action: window.plugins.webintent.ACTION_VIEW,
-        url: 'geo:0,0?q=' + address},
-        function() {},
-        function() {alert('Failed to open URL via Android Intent')};
-    );
+### hasExtra
 
+Checks if this app was invoked with the specified extra. For example:
 
-### hasExtra ###
-checks if this app was invoked with the specified extra. For example:
+```javascript
+window.plugins.webintent.hasExtra(WebIntent.EXTRA_TEXT,
+    function (has) {
+        // `has` is true iff app invoked with specified extra
+    }, function () {
+        // `hasExtra` check failed
+    }
+);
+```
 
-    window.plugins.webintent.hasExtra(WebIntent.EXTRA_TEXT,
-        function(has) {
-            // has is true iff it has the extra
-        }, function() {
-            // Something really bad happened.
-        }
-    );
+### getExtra
 
-### getExtra ###
 Gets the extra that this app was invoked with. For example:
 
-    window.plugins.webintent.getExtra(WebIntent.EXTRA_TEXT,
-        function(url) {
-            // url is the value of EXTRA_TEXT
-        }, function() {
-            // There was no extra supplied.
-        }
-    );
+```javascript
+window.plugins.webintent.getExtra(WebIntent.EXTRA_TEXT,
+    function (url) {
+        // `url` is the value of EXTRA_TEXT
+    }, function () {
+        // There was no extra supplied.
+    }
+);
+```
 
-### getUri ###
-Gets the Uri the app was invoked with. For example:
+### getUri
 
-    window.plugins.webintent.getUri(function(url) {
-        if(url !== "") {
-            // url is the url the intent was launched with
-        }
-    });
+Gets the URI the app was invoked with. For example:
 
-### onNewIntent ###
-Gets called when onNewIntent is called for the parent activity. Used in only certain launchModes. For example:
+```javascript
+window.plugins.webintent.getUri(function (uri) {
+    if (uri !== '') {
+        // `uri` is the uri the intent was launched with
+    }
+});
+```
 
-    window.plugins.webintent.onNewIntent(function(url) {
-        if(url !== "") {
-            // url is the url that was passed to onNewIntent
-        }
-    });
+### onNewIntent
 
-### sendBroadcast ###
+Gets called when `onNewIntent` is called for the parent activity.
+Used in only certain launchModes. For example:
+
+```javascript
+window.plugins.webintent.onNewIntent(function (uri) {
+    if (uri !== '') {
+        // `uri` is the uri that was passed to onNewIntent
+    }
+});
+```
+
+### sendBroadcast
 Sends a custom intent passing optional extras
 
-    window.plugins.webintent.sendBroadcast({
-                action: 'com.dummybroadcast.action.triggerthing',
-                extras: {
-                    'option': true
-                }
-            }, function() {
-            }, function() {
-    });
+```javascript
+window.plugins.webintent.sendBroadcast({
+    action: 'com.dummybroadcast.action.triggerthing',
+    extras: { option: true }
+  }, function() {
+  }, function() {
+});
+```
 
 ## Licence ##
 
 The MIT License
 
-Copyright (c) 2010 Boris Smus
+Copyright (c) 2010-2017 Boris Smus and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
