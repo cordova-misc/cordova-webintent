@@ -15,6 +15,7 @@
     WebIntent.prototype.EXTRA_STREAM = "android.intent.extra.STREAM";
     WebIntent.prototype.EXTRA_EMAIL = "android.intent.extra.EMAIL";
     WebIntent.prototype.ACTION_CALL = "android.intent.action.CALL";
+    WebIntent.prototype.ACTION_SENDTO = "android.intent.action.SENDTO";
 
     WebIntent.prototype.startActivity = function(params, success, fail) {
         return cordova.exec(function(args) {
