@@ -15,7 +15,7 @@
 
 - Forked by [Chris E. Kelley](https://github.com/chrisekelley)
   and published to
-  [chrisekelley/cordova-webintent](https://github.com/chrisekelley/cordova-webintent)
+  [cordova-misc/cordova-webintent](https://github.com/cordova-misc/cordova-webintent)
 
 - Many people forked but for some reason did not submit PRs,
   leaving their forks divergent.
