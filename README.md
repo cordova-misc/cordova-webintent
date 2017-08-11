@@ -30,7 +30,7 @@ canonical upstream, and submit PRs for any changes you'd like merged.**
 1. To install the plugin, use the Cordova CLI:
 
     ```bash
-    cordova plugin add https://github.com/chrisekelley/cordova-webintent.git
+    cordova plugin add https://github.com/cordova-misc/cordova-webintent.git
     ```
 
 1. Confirm that the following is now in your `config.xml` file:
