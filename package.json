@@ -1,0 +1,24 @@
+{
+  "name": "cordova-webintent",
+  "version": "1.1.0",
+  "description": "WebIntent Android Plugin for Cordova 3.X",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cordova-misc/cordova-webintent.git"
+  },
+  "keywords": [
+    "cordova",
+    "webintent",
+    "intent"
+  ],
+  "author": "borismus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cordova-misc/cordova-webintent/issues"
+  },
+  "homepage": "https://github.com/cordova-misc/cordova-webintent#readme"
+}
