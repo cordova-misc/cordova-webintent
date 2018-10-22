@@ -203,7 +203,12 @@ public class WebIntent extends CordovaPlugin {
         for (Map.Entry<String, String> entry : extras.entrySet()) {
             intent.putExtra(entry.getKey(), entry.getValue());
         }
-        ((CordovaActivity)this.cordova.getActivity()).sendBroadcast(intent);
+
+        if (type != null && type.equals("service")) {
+          ((CordovaActivity)this.cordova.getActivity()).startService(intent);
+        } else {
+          ((CordovaActivity)this.cordova.getActivity()).sendBroadcast(intent);
+        }
     }
 
     // Receiver that listens for com.android.vending.INSTALL_REFERRER, an intent sent by the
