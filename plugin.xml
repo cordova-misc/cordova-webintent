@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
-           id="com.borismus.webintent"
-      version="1.1.0">
-    <name>WebIntent</name>
+           id="cordova-webintent"
+      version="2.0.0">
+    <name>cordova-webintent</name>
     <description>Web intents for Cordova</description>
     <license>Apache</license>
     <keywords>cordova,webintent</keywords>
