@@ -47,7 +47,8 @@ Here is an example of using webintent to open an Android .apk package, which the
 window.plugins.webintent.startActivity({
       action: window.plugins.webintent.ACTION_VIEW,
       url: 'file://' + theFile.fullPath,
-      type: 'application/vnd.android.package-archive'
+      type: 'application/vnd.android.package-archive',
+      flag: window.plugins.webintent.FLAG_ACTIVITY_NEW_TASK
     },
     function () {},
     function () {

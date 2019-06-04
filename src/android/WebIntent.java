@@ -55,6 +55,8 @@ public class WebIntent extends CordovaPlugin {
                 Uri uri = obj.has("url") ? resourceApi.remapUri(Uri.parse(obj.getString("url"))) : null;
                 JSONObject extras = obj.has("extras") ? obj.getJSONObject("extras") : null;
                 Map<String, String> extrasMap = new HashMap<String, String>();
+                Object flagParse = obj.get("flag");
+                Integer flag = (flagParse instanceof Integer) ? (int) flagParse : (int) Integer.parseInt((String) flagParse);
 
                 // Populate the extras if any exist
                 if (extras != null) {
@@ -66,7 +68,7 @@ public class WebIntent extends CordovaPlugin {
                     }
                 }
 
-                startActivity(obj.getString("action"), uri, type, extrasMap);
+                startActivity(obj.getString("action"), uri, type, extrasMap, flag);
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 return true;
             } else if ("hasExtra".equals(action)) {
@@ -165,7 +167,7 @@ public class WebIntent extends CordovaPlugin {
         }
     }
 
-    void startActivity(String action, Uri uri, String type, Map<String, String> extras) {
+    void startActivity(String action, Uri uri, String type, Map<String, String> extras, Integer flag) {
         Intent i = uri != null ? new Intent(action, uri) : new Intent(action);
 
         if (type != null && uri != null) {
@@ -193,6 +195,9 @@ public class WebIntent extends CordovaPlugin {
             } else {
                 i.putExtra(key, value);
             }
+        }
+        if(flag != null){
+            i.setFlags(flag);
         }
         ((CordovaActivity)this.cordova.getActivity()).startActivity(i);
     }
